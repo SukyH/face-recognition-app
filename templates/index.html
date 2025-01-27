@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition App</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Face Recognition Web App</h1>
+
+        <!-- Button to start webcam -->
+        <button id="start-webcam" onClick="startWebcam()" style="display:inline-block;">Start Webcam</button>
+        <button id="stop-webcam" onClick="stopWebcam()" style="display:none;">Stop Webcam</button>
+
+        <!-- Video feed element -->
+        <video id="webcam" width="640" height="480" autoplay></video>
+
+        <!-- Image upload form -->
+        <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="file">Upload an Image below:</label><br>
+            <input type="file" id="file" name="file" accept="image/*" required><br><br>
+            <button type="submit">Upload Image</button>
+        </form>
+
+        <div id="detected-faces-info">
+            <h2>Detected Faces: <span id="face-count">0</span></h2>
+        </div>
+    </div>
+
+    <script>
+        let webcamStream;
+        
+        function startWebcam() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    document.getElementById("webcam").srcObject = stream;
+                    webcamStream = stream;
+                    document.getElementById("start-webcam").style.display = "none";
+                    document.getElementById("stop-webcam").style.display = "inline-block";
+                })
+                .catch((err) => {
+                    console.error("Error accessing webcam: ", err);
+                });
+        }
+
+        function stopWebcam() {
+            let tracks = webcamStream.getTracks();
+            tracks.forEach(track => track.stop());
+            document.getElementById("webcam").srcObject = null;
+            document.getElementById("start-webcam").style.display = "inline-block";
+            document.getElementById("stop-webcam").style.display = "none";
+        }
+    </script>
+</body>
+</html>
