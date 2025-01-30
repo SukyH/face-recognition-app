@@ -19,9 +19,14 @@ const App = () => {
 
     const formData = new FormData();
     formData.append('file', file);  // Appending the file correctly
-  
+
+    // Conditionally set the API URL based on the environment (local or deployed)
+    const apiUrl = process.env.NODE_ENV === 'development'
+      ? 'http://localhost:5000/upload'  // Local URL for local development
+      : 'https://face-recognition-5f1f2.web.app/'; // Firebase URL
+
     try {
-      const response = await API.post('/upload', formData); // Sending to backend
+      const response = await API.post(apiUrl, formData); // Sending to backend
       setResult(response.data); // Store the response data
       setFacesDetected(response.data.faces); // Store the number of faces detected
     } catch (err) {
@@ -57,7 +62,10 @@ const App = () => {
           <h2>Detected Faces: {facesDetected}</h2>
           <div style={{ position: 'relative', display: 'inline-block' }}>
             <img
-              src={`http://localhost:5000${result.image_url}`}  // Display the processed image
+              // Use Firebase or local URL dynamically
+              src={process.env.NODE_ENV === 'development'
+                ? `http://localhost:5000${result.image_url}`
+                : `https://us-central1-your-project-id.cloudfunctions.net/your-function-name/static/uploads/${result.filename}`}
               alt="Uploaded"
               style={{ maxWidth: '100%', height: 'auto' }}
             />
@@ -73,3 +81,4 @@ const App = () => {
 };
 
 export default App;
+
