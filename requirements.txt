@@ -6,3 +6,4 @@ opencv-python
 werkzeug
 gunicorn  # Required for production
 dlib==19.22.0
+face_recognition --no-cache-dir
