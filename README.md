@@ -23,9 +23,9 @@ This project is a Face Recognition Web App built using React for the frontend an
 Clone the Repository
 
 Clone this repository to your local machine,compile the files and run the application:
-git clone https://github.com/SukyH/face-recognition-app.git
+git clone https://github.com/SukyH/face-recognition-app.git  where you run Flask on localhost:5000 and Run React on localhost:3000 
 OR
-Visit the Hosting URL: https://face-recognition-5f1f2.web.app
+Visit the Hosting URL: https://face-recognition-5f1f2.web.app to view the front end functions
 
 ✨ Improvements
 
