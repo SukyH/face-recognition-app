@@ -23,7 +23,7 @@ const App = () => {
     // Conditionally set the API URL based on the environment (local or deployed)
     const apiUrl = process.env.NODE_ENV === 'development'
       ? 'http://localhost:5000/upload'  // Local URL for local development
-      : 'https://face-recognition-5f1f2.web.app/'; // Firebase URL
+      : 'https://face-recognition-backend-95kh.onrender.com'; // Firebase URL
 
     try {
       const response = await API.post(apiUrl, formData); // Sending to backend
